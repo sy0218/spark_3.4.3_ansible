@@ -1,0 +1,49 @@
+---
+- name: Create Spark_tar directory
+  hosts: servers
+  become: yes
+  vars_files:
+    - /data/work/spark_3.4.3_auto_ansible/main.yml
+  tasks:
+    - name: Create Spark_tar directory
+      file:
+        path: "{{ spark_tar_path }}"
+        state: directory
+
+    - name: Create work directory
+      file:
+        path: "{{ work_dir }}"
+        state: directory
+
+
+- name: Copy spark_tar to servers
+  hosts: localhost
+  become: yes
+  vars_files:
+    - /data/work/spark_3.4.3_auto_ansible/main.yml
+  tasks:
+    - name: tar_scp.sh Start
+      shell: "{{ play_book_dir }}/tar_scp.sh {{ play_book_dir }} {{ spark_tar_path }}"
+
+
+- name: Extract spark_tar
+  hosts: servers
+  become: yes
+  vars_files:
+    - /data/work/spark_3.4.3_auto_ansible/main.yml
+  tasks:
+    - name: Extract the spark tarball
+      unarchive:
+        src: "{{ spark_tar_path }}/{{ spark_tar_filename }}"
+        dest: "{{ work_dir }}"
+        remote_src: yes
+
+
+#- name: entrypoint_sh start
+#  hosts: localhost
+#  become: yes
+#  vars_files:
+#    - /data/work/hadoop_3.3.5_auto_ansible/main.yml
+#  tasks:
+#    - name: entry_point_sh start
+#      shell: "{{ play_book_dir }}/entrypoint.sh {{ play_book_dir }} {{ work_dir }}"

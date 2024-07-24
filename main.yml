@@ -1,0 +1,4 @@
+spark_tar_path: "/data/download_tar"
+spark_tar_filename: "spark-3.4.3-bin-hadoop3.tgz"
+work_dir: "/data/sy0218"
+play_book_dir: "/data/work/spark_3.4.3_auto_ansible"
