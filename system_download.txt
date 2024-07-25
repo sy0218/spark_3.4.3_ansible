@@ -1,4 +1,5 @@
 [server_ip]|192.168.56.10|192.168.56.11|192.168.56.12
+
 [zookeeper_ip]|192.168.56.10|192.168.56.11|192.168.56.12
 -----------------------[zoo.cfg-start]-----------------------
 [tickTime=]|2000
@@ -8,12 +9,14 @@
 [clientPort=]|2181
 -----------------------[zoo.cfg-end]-----------------------
 
+
 [postgresql_data_directory]|/pgdb/pg_data
 -----------------------[postgresql.conf-start]-----------------------
 [data_directory]|'/pgdb/pg_data'
 [listen_addresses]|'*'
 [port]|5432
 -----------------------[postgresql.conf-end]-----------------------
+
 
 [hadoop_ip]|192.168.56.10|192.168.56.11|192.168.56.12
 [need_dir]|/hadoop/hdfs_work|/hadoop/hdfs|/hadoop/data1|/hadoop/data2|/hadoop/jn|/hadoop/data
@@ -62,4 +65,38 @@
 -----------------------[workers-end]-----------------------
 
 
+[hive_ip]|192.168.56.10
+-----------------------[hive-site.xml-start]-----------------------
+[javax.jdo.option.ConnectionURL]|jdbc:postgresql://192.168.56.10:5432/sy0218
+[hive.metastore.db.type]|postgres
+[javax.jdo.option.ConnectionDriverName]|org.postgresql.Driver
+[javax.jdo.option.ConnectionUserName]|hive
+[javax.jdo.option.ConnectionPassword]|hive0218
+[hive.metastore.warehouse.dir]|/user/hive/warehouse
+[hive.execution.engine]|mr
+-----------------------[hive-site.xml-end]-----------------------
+
+
 [spark_ip]|192.168.56.10|192.168.56.11|192.168.56.12
+-----------------------[spark-env.sh-start]-----------------------
+[export SPARK_HOME=]|/data/sy0218/spark
+[export SPARK_CONF_DIR=]|/data/sy0218/spark/conf
+[export JAVA_HOME=]|/usr/lib/jvm/java-8-openjdk-amd64
+[export HADOOP_HOME=]|/data/sy0218/hadoop-3.3.5
+[export HADOOP_CONF_DIR=]|/data/sy0218/hadoop-3.3.5/etc/hadoop
+[export SPARK_MASTER_WEBUI_PORT=]|18080
+-----------------------[spark-env.sh-end]-----------------------
+
+-----------------------[spark-defaults.conf-start]-----------------------
+[spark.master]|yarn
+[spark.eventLog.enabled]|true
+[spark.eventLog.dir]|/data/sy0218/spark/logs
+[spark.yarn.am.memory]|200m
+[spark.yarn.am.cores]|1
+-----------------------[spark-defaults.conf-end]-----------------------
+
+-----------------------[spark-workers-start]-----------------------
+192.168.56.10
+192.168.56.11
+192.168.56.12
+-----------------------[spark-workers-end]-----------------------
