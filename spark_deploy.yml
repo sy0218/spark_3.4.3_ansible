@@ -38,6 +38,7 @@
         dest: "{{ work_dir }}"
         remote_src: yes
 
+
 - name: Spark link
   hosts: servers
   become: yes
@@ -48,11 +49,13 @@
       shell: "ln -s {{ work_dir }}/spark-?.?.?* {{ work_dir }}/spark"
       args:
         creates: "{{ work_dir }}/spark"
-#- name: entrypoint_sh start
-#  hosts: localhost
-#  become: yes
-#  vars_files:
-#    - /data/work/hadoop_3.3.5_auto_ansible/main.yml
-#  tasks:
-#    - name: entry_point_sh start
-#      shell: "{{ play_book_dir }}/entrypoint.sh {{ play_book_dir }} {{ work_dir }}"
+
+
+- name: entrypoint_sh start
+  hosts: localhost
+  become: yes
+  vars_files:
+    - /data/work/spark_3.4.3_auto_ansible/main.yml
+  tasks:
+    - name: entry_point_sh start
+      shell: "{{ play_book_dir }}/entrypoint.sh {{ play_book_dir }} {{ work_dir }}"
