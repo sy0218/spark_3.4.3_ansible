@@ -58,4 +58,4 @@
     - /data/work/spark_3.4.3_auto_ansible/main.yml
   tasks:
     - name: entry_point_sh start
-      shell: "{{ play_book_dir }}/entrypoint.sh {{ play_book_dir }} {{ work_dir }}"
+      shell: "{{ play_book_dir }}/entrypoint.sh {{ work_dir }}"
