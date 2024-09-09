@@ -80,7 +80,7 @@ for ((i=0; i<len_ip_array; i++)); do
 
 	setup_functions "spark-env.sh" ${current_ip}
 	setup_space_functions "spark-defaults.conf" ${current_ip}
-	ssh ${current_ip} "mkdir -p ${SPARK_LOG_DIR} && chown -R $USER:$USER ${SPARK_LOG_DIR}" # 스파크 로그 디렉토리 생성
+	ssh ${current_ip} "mkdir -p ${SPARK_LOG_DIR} && chown -R $USER:$USER ${SPARK_HOME}" # 스파크 로그 디렉토리 생성
 	
 	ssh ${current_ip} "touch ${work_dir}/spark/conf/workers" # 워커 파일 생성
 	setup_functions "workers:spark" ${current_ip}

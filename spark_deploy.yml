@@ -3,7 +3,7 @@
   hosts: servers
   become: yes
   vars_files:
-    - /data/work/spark_3.4.3_auto_ansible/main.yml
+    - /data/work/spark_3.4.3_ansible/main.yml
   tasks:
     - name: Create Spark_tar directory
       file:
@@ -20,7 +20,7 @@
   hosts: localhost
   become: yes
   vars_files:
-    - /data/work/spark_3.4.3_auto_ansible/main.yml
+    - /data/work/spark_3.4.3_ansible/main.yml
   tasks:
     - name: tar_scp.sh Start
       shell: "{{ play_book_dir }}/tar_scp.sh {{ play_book_dir }} {{ spark_tar_path }}"
@@ -30,20 +30,22 @@
   hosts: servers
   become: yes
   vars_files:
-    - /data/work/spark_3.4.3_auto_ansible/main.yml
+    - /data/work/spark_3.4.3_ansible/main.yml
   tasks:
     - name: Extract the spark tarball
       unarchive:
         src: "{{ spark_tar_path }}/{{ spark_tar_filename }}"
         dest: "{{ work_dir }}"
         remote_src: yes
+        owner: root
+        group: root
 
 
 - name: Spark link
   hosts: servers
   become: yes
   vars_files:
-    - /data/work/spark_3.4.3_auto_ansible/main.yml
+    - /data/work/spark_3.4.3_ansible/main.yml
   tasks:
     - name: Spark link gogo
       shell: "ln -s {{ work_dir }}/spark-?.?.?* {{ work_dir }}/spark"
@@ -55,7 +57,7 @@
   hosts: localhost
   become: yes
   vars_files:
-    - /data/work/spark_3.4.3_auto_ansible/main.yml
+    - /data/work/spark_3.4.3_ansible/main.yml
   tasks:
     - name: entry_point_sh start
       shell: "{{ play_book_dir }}/entrypoint.sh {{ work_dir }}"
